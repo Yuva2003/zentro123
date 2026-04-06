@@ -1,0 +1,2584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zentro – Unified Services Platform</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@700;800&display=swap">
+    <style>
+        :root {
+            /* Service Colors */
+            --mechanical: #ef4444;
+            --mechanical-light: #fee2e2;
+            --mechanical-dark: #dc2626;
+            
+            --electrical: #3b82f6;
+            --electrical-light: #dbeafe;
+            --electrical-dark: #1e40af;
+            
+            --civil: #10b981;
+            --civil-light: #d1fae5;
+            --civil-dark: #047857;
+            
+            --electronics: #8b5cf6;
+            --electronics-light: #ede9fe;
+            --electronics-dark: #6d28d9;
+            
+            --travel: #f59e0b;
+            --travel-light: #fef3c7;
+            --travel-dark: #d97706;
+            
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --dark: #111827;
+            --darker: #0f172a;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --gray-light: #e2e8f0;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --radius: 12px;
+            --radius-lg: 20px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            line-height: 1.2;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 28px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            border: none;
+            font-family: 'Inter', sans-serif;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-mechanical {
+            background-color: var(--mechanical);
+            color: white;
+        }
+
+        .btn-mechanical:hover {
+            background-color: var(--mechanical-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-electrical {
+            background-color: var(--electrical);
+            color: white;
+        }
+
+        .btn-electrical:hover {
+            background-color: var(--electrical-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-civil {
+            background-color: var(--civil);
+            color: white;
+        }
+
+        .btn-civil:hover {
+            background-color: var(--civil-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-electronics {
+            background-color: var(--electronics);
+            color: white;
+        }
+
+        .btn-electronics:hover {
+            background-color: var(--electronics-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-travel {
+            background-color: var(--travel);
+            color: white;
+        }
+
+        .btn-travel:hover {
+            background-color: var(--travel-dark);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .tag-mechanical {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--mechanical);
+        }
+
+        .tag-electrical {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--electrical);
+        }
+
+        .tag-civil {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--civil);
+        }
+
+        .tag-electronics {
+            background-color: rgba(139, 92, 246, 0.1);
+            color: var(--electronics);
+        }
+
+        .tag-travel {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--travel);
+        }
+
+        /* Header */
+        header {
+            background-color: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid var(--gray-light);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 18px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 1.8rem;
+            color: var(--dark);
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 12px;
+            color: white;
+            font-weight: bold;
+        }
+
+        .logo span {
+            color: var(--primary);
+        }
+
+        nav ul {
+            display: flex;
+            align-items: center;
+            gap: 25px;
+        }
+
+        nav li a {
+            font-weight: 500;
+            position: relative;
+            padding: 5px 0;
+            transition: var(--transition);
+        }
+
+        nav li a:hover {
+            color: var(--primary);
+        }
+
+        nav li a.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        nav li a.active:after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: var(--primary);
+            border-radius: 3px;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .login-btn {
+            padding: 10px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            background-color: var(--primary);
+            color: white;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+
+        .login-btn:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--dark);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 160px 0 100px;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .hero-text h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            color: var(--darker);
+        }
+
+        .hero-text h1 span {
+            color: var(--primary);
+            position: relative;
+        }
+
+        .hero-text h1 span:after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background-color: rgba(37, 99, 235, 0.2);
+            z-index: -1;
+        }
+
+        .hero-text p {
+            font-size: 1.1rem;
+            color: var(--gray);
+            margin-bottom: 30px;
+            max-width: 550px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            font-family: 'Space Grotesk', sans-serif;
+            color: var(--primary);
+            line-height: 1;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .hero-visual {
+            position: relative;
+            height: 400px;
+        }
+
+        .service-orb {
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .service-orb:hover {
+            transform: scale(1.1);
+        }
+
+        .service-orb i {
+            font-size: 2rem;
+            margin-bottom: 8px;
+        }
+
+        .orb-mechanical {
+            background: linear-gradient(135deg, var(--mechanical), #f87171);
+            top: 20px;
+            left: 0;
+        }
+
+        .orb-electrical {
+            background: linear-gradient(135deg, var(--electrical), #60a5fa);
+            top: 0;
+            right: 100px;
+        }
+
+        .orb-civil {
+            background: linear-gradient(135deg, var(--civil), #34d399);
+            top: 150px;
+            left: 150px;
+        }
+
+        .orb-electronics {
+            background: linear-gradient(135deg, var(--electronics), #a78bfa);
+            bottom: 50px;
+            left: 30px;
+        }
+
+        .orb-travel {
+            background: linear-gradient(135deg, var(--travel), #fbbf24);
+            bottom: 0;
+            right: 50px;
+        }
+
+        .central-orb {
+            position: absolute;
+            width: 160px;
+            height: 160px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1.2rem;
+            box-shadow: var(--shadow-lg);
+            z-index: 2;
+        }
+
+        .central-orb i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        /* Services Section */
+        .services {
+            padding: 100px 0;
+            background-color: white;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.8rem;
+            color: var(--darker);
+            margin-bottom: 15px;
+        }
+
+        .section-title p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.1rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .service-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid var(--gray-light);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .service-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+        }
+
+        .service-card.mechanical:before {
+            background-color: var(--mechanical);
+        }
+
+        .service-card.electrical:before {
+            background-color: var(--electrical);
+        }
+
+        .service-card.civil:before {
+            background-color: var(--civil);
+        }
+
+        .service-card.electronics:before {
+            background-color: var(--electronics);
+        }
+
+        .service-card.travel:before {
+            background-color: var(--travel);
+        }
+
+        .service-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .service-card.mechanical .service-icon {
+            background-color: var(--mechanical);
+        }
+
+        .service-card.electrical .service-icon {
+            background-color: var(--electrical);
+        }
+
+        .service-card.civil .service-icon {
+            background-color: var(--civil);
+        }
+
+        .service-card.electronics .service-icon {
+            background-color: var(--electronics);
+        }
+
+        .service-card.travel .service-icon {
+            background-color: var(--travel);
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .service-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+        }
+
+        .service-features {
+            margin-bottom: 25px;
+        }
+
+        .service-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .service-features i {
+            margin-right: 10px;
+            color: var(--secondary);
+        }
+
+        /* Service Pages */
+        .service-page {
+            padding: 140px 0 100px;
+            min-height: 100vh;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .page-header h1 {
+            font-size: 3.2rem;
+            color: var(--darker);
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            color: var(--gray);
+            max-width: 700px;
+            margin: 0 auto;
+            font-size: 1.2rem;
+        }
+
+        .service-icon-header {
+            width: 100px;
+            height: 100px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 30px;
+            color: white;
+            font-size: 3rem;
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mechanical-page .service-icon-header {
+            background: linear-gradient(135deg, var(--mechanical), #f87171);
+        }
+
+        .electrical-page .service-icon-header {
+            background: linear-gradient(135deg, var(--electrical), #60a5fa);
+        }
+
+        .civil-page .service-icon-header {
+            background: linear-gradient(135deg, var(--civil), #34d399);
+        }
+
+        .electronics-page .service-icon-header {
+            background: linear-gradient(135deg, var(--electronics), #a78bfa);
+        }
+
+        .travel-page .service-icon-header {
+            background: linear-gradient(135deg, var(--travel), #fbbf24);
+        }
+
+        /* Service Categories */
+        .service-categories {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .category-card {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 30px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 2px solid var(--gray-light);
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .category-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            color: white;
+            font-size: 2rem;
+            transition: var(--transition);
+        }
+
+        .mechanical-page .category-card:hover .category-icon {
+            background-color: var(--mechanical) !important;
+        }
+
+        .electrical-page .category-card:hover .category-icon {
+            background-color: var(--electrical) !important;
+        }
+
+        .civil-page .category-card:hover .category-icon {
+            background-color: var(--civil) !important;
+        }
+
+        .electronics-page .category-card:hover .category-icon {
+            background-color: var(--electronics) !important;
+        }
+
+        .travel-page .category-card:hover .category-icon {
+            background-color: var(--travel) !important;
+        }
+
+        .category-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 10px;
+            color: var(--darker);
+        }
+
+        .category-card p {
+            color: var(--gray);
+            margin-bottom: 20px;
+            font-size: 0.95rem;
+        }
+
+        /* Sub Services */
+        .sub-services {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            padding: 50px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--gray-light);
+        }
+
+        .sub-services h2 {
+            font-size: 2.2rem;
+            margin-bottom: 30px;
+            color: var(--darker);
+            text-align: center;
+        }
+
+        .sub-services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .sub-service-item {
+            background-color: white;
+            border-radius: var(--radius);
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            transition: var(--transition);
+            border: 2px solid transparent;
+            cursor: pointer;
+            box-shadow: var(--shadow);
+        }
+
+        .sub-service-item:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .mechanical-page .sub-service-item:hover {
+            border-color: var(--mechanical);
+        }
+
+        .electrical-page .sub-service-item:hover {
+            border-color: var(--electrical);
+        }
+
+        .civil-page .sub-service-item:hover {
+            border-color: var(--civil);
+        }
+
+        .electronics-page .sub-service-item:hover {
+            border-color: var(--electronics);
+        }
+
+        .travel-page .sub-service-item:hover {
+            border-color: var(--travel);
+        }
+
+        .sub-service-icon {
+            width: 60px;
+            height: 60px;
+            background-color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            border: 2px solid var(--gray-light);
+        }
+
+        .mechanical-page .sub-service-icon {
+            color: var(--mechanical);
+        }
+
+        .electrical-page .sub-service-icon {
+            color: var(--electrical);
+        }
+
+        .civil-page .sub-service-icon {
+            color: var(--civil);
+        }
+
+        .electronics-page .sub-service-icon {
+            color: var(--electronics);
+        }
+
+        .travel-page .sub-service-icon {
+            color: var(--travel);
+        }
+
+        .sub-service-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            color: var(--darker);
+        }
+
+        .sub-service-item p {
+            color: var(--gray);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .price-tag {
+            display: inline-block;
+            padding: 6px 12px;
+            background-color: white;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border: 1px solid var(--gray-light);
+        }
+
+        .mechanical-page .price-tag {
+            color: var(--mechanical);
+        }
+
+        .electrical-page .price-tag {
+            color: var(--electrical);
+        }
+
+        .civil-page .price-tag {
+            color: var(--civil);
+        }
+
+        .electronics-page .price-tag {
+            color: var(--electronics);
+        }
+
+        .travel-page .price-tag {
+            color: var(--travel);
+        }
+
+        /* Login Modal */
+        .login-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            padding: 20px;
+            opacity: 0;
+            visibility: hidden;
+            transition: var(--transition);
+        }
+
+        .login-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .login-container {
+            background-color: white;
+            border-radius: var(--radius-lg);
+            padding: 50px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            transform: translateY(20px);
+            transition: var(--transition);
+        }
+
+        .login-modal.active .login-container {
+            transform: translateY(0);
+        }
+
+        .close-login {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--gray);
+            transition: var(--transition);
+        }
+
+        .close-login:hover {
+            color: var(--danger);
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .login-header h2 {
+            font-size: 2.2rem;
+            color: var(--darker);
+            margin-bottom: 10px;
+        }
+
+        .login-header p {
+            color: var(--gray);
+        }
+
+        .login-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--darker);
+        }
+
+        .form-group input {
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 1px solid var(--gray-light);
+            font-family: 'Inter', sans-serif;
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .login-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+
+        .forgot-password {
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .forgot-password:hover {
+            color: var(--primary-dark);
+        }
+
+        .login-form .btn {
+            width: 100%;
+            padding: 16px;
+            font-size: 1rem;
+            margin-top: 10px;
+        }
+
+        .login-footer {
+            text-align: center;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid var(--gray-light);
+            color: var(--gray);
+        }
+
+        .login-footer a {
+            color: var(--primary);
+            font-weight: 600;
+            transition: var(--transition);
+        }
+
+        .login-footer a:hover {
+            color: var(--primary-dark);
+        }
+
+        /* Unified Platform */
+        .unified-platform {
+            padding: 100px 0;
+            background-color: var(--darker);
+            color: white;
+        }
+
+        .unified-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .unified-text h2 {
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        .unified-text h2 span {
+            color: var(--secondary);
+        }
+
+        .unified-text p {
+            color: #cbd5e1;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .platform-features li {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .platform-features i {
+            width: 40px;
+            height: 40px;
+            background-color: rgba(16, 185, 129, 0.2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            color: var(--secondary);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--darker);
+            color: white;
+            padding: 80px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            margin-bottom: 50px;
+        }
+
+        .footer-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 2rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-logo span {
+            color: var(--primary);
+        }
+
+        .footer-about p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+
+        .footer-links h3, .footer-services h3, .footer-contact h3 {
+            font-size: 1.2rem;
+            margin-bottom: 25px;
+            position: relative;
+            padding-bottom: 10px;
+        }
+
+        .footer-links h3:after, .footer-services h3:after, .footer-contact h3:after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background-color: var(--primary);
+        }
+
+        .footer-links ul li, .footer-services ul li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a, .footer-services a {
+            color: #cbd5e1;
+            transition: var(--transition);
+        }
+
+        .footer-links a:hover, .footer-services a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+
+        .footer-contact p {
+            color: #cbd5e1;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+
+        .footer-contact i {
+            margin-right: 10px;
+            color: var(--primary);
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            transition: var(--transition);
+        }
+
+        .social-icons a:hover {
+            background-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 30px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1100px) {
+            .hero-content, .unified-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            .hero-visual {
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .header-container {
+                padding: 15px 0;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                padding: 20px;
+                box-shadow: var(--shadow);
+                transform: translateY(-100%);
+                opacity: 0;
+                transition: var(--transition);
+                visibility: hidden;
+                z-index: 999;
+            }
+            
+            nav.active {
+                transform: translateY(0);
+                opacity: 1;
+                visibility: visible;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .hero {
+                padding: 140px 0 80px;
+            }
+            
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section-title h2 {
+                font-size: 2.2rem;
+            }
+            
+            .hero-stats {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .service-page {
+                padding: 120px 0 60px;
+            }
+            
+            .page-header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .sub-services {
+                padding: 30px 20px;
+            }
+            
+            .login-container {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .services-grid, .service-categories, .sub-services-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .service-orb {
+                width: 90px;
+                height: 90px;
+                font-size: 0.9rem;
+            }
+            
+            .service-orb i {
+                font-size: 1.5rem;
+            }
+            
+            .central-orb {
+                width: 120px;
+                height: 120px;
+                font-size: 1rem;
+            }
+            
+            .page-header h1 {
+                font-size: 2rem;
+            }
+        }
+
+        /* Page Transitions */
+        .page {
+            display: none;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .page.active {
+            display: block;
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Animation */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .floating {
+            animation: float 5s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo" id="homeLink">
+                <div class="logo-icon">Z</div>
+                Zentro<span>.</span>
+            </a>
+            
+            <div class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </div>
+            
+            <nav id="mainNav">
+                <ul>
+                    <li><a href="#" id="navHome" class="active">Home</a></li>
+                    <li><a href="#" id="navMechanical">Mechanical</a></li>
+                    <li><a href="#" id="navElectrical">Electrical</a></li>
+                    <li><a href="#" id="navCivil">Civil</a></li>
+                    <li><a href="#" id="navElectronics">Electronics</a></li>
+                    <li><a href="#" id="navTravel">Travel</a></li>
+                </ul>
+            </nav>
+            
+            <div class="user-actions">
+                <button class="login-btn" id="loginBtn">
+                    <i class="fas fa-user"></i> Login
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Modal -->
+    <div class="login-modal" id="loginModal">
+        <div class="login-container">
+            <button class="close-login" id="closeLogin">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="login-header">
+                <div class="login-icon">
+                    <i class="fas fa-user"></i>
+                </div>
+                <h2>Welcome to Zentro</h2>
+                <p>Login to book any service</p>
+            </div>
+            
+            <form class="login-form" id="loginForm">
+                <div class="form-group">
+                    <label for="loginEmail">Email Address</label>
+                    <input type="email" id="loginEmail" placeholder="Enter your email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="loginPassword">Password</label>
+                    <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                </div>
+                
+                <div class="login-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="rememberMe">
+                        <label for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="btn btn-primary">
+                    <i class="fas fa-sign-in-alt"></i> Login to Continue
+                </button>
+            </form>
+            
+            <div class="login-footer">
+                <p>Don't have an account? <a href="#" id="signupLink">Sign up here</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div class="page active" id="homePage">
+        <!-- Hero -->
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1>One Platform, <span>Five Essential Services</span></h1>
+                        <p>Zentro is the unified platform delivering mechanical, electrical, civil, electronics, and travel services with seamless integration, quality assurance, and single-point accountability.</p>
+                        <div class="hero-btns">
+                            <a href="#" class="btn btn-primary" id="exploreAllServices">Explore All Services</a>
+                            <a href="#" class="btn btn-outline" id="bookNowBtn">Book Now</a>
+                        </div>
+                        
+                        <div class="hero-stats">
+                            <div class="stat-item">
+                                <div class="stat-number">5+</div>
+                                <div class="stat-label">Service Domains</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">2500+</div>
+                                <div class="stat-label">Projects Completed</div>
+                            </div>
+                            <div class="stat-item">
+                                <div class="stat-number">98%</div>
+                                <div class="stat-label">Client Satisfaction</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="hero-visual">
+                        <div class="service-orb orb-mechanical floating" id="mechanicalOrb">
+                            <i class="fas fa-cogs"></i>
+                            <span>Mechanical</span>
+                        </div>
+                        <div class="service-orb orb-electrical floating" id="electricalOrb">
+                            <i class="fas fa-bolt"></i>
+                            <span>Electrical</span>
+                        </div>
+                        <div class="service-orb orb-civil floating" id="civilOrb">
+                            <i class="fas fa-hard-hat"></i>
+                            <span>Civil</span>
+                        </div>
+                        <div class="service-orb orb-electronics floating" id="electronicsOrb">
+                            <i class="fas fa-microchip"></i>
+                            <span>Electronics</span>
+                        </div>
+                        <div class="service-orb orb-travel floating" id="travelOrb">
+                            <i class="fas fa-plane"></i>
+                            <span>Travel</span>
+                        </div>
+                        <div class="central-orb">
+                            <i class="fas fa-infinity"></i>
+                            <span>Unified</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services -->
+        <section class="services">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Our Integrated Services</h2>
+                    <p>From infrastructure to innovation, travel to technology – we provide comprehensive solutions across five essential domains.</p>
+                </div>
+                
+                <div class="services-grid" id="servicesContainer">
+                    <!-- Services will be loaded by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Unified Platform -->
+        <section class="unified-platform">
+            <div class="container">
+                <div class="unified-content">
+                    <div class="unified-text">
+                        <h2>The Power of a <span>Unified Platform</span></h2>
+                        <p>Zentro integrates five essential service domains into one seamless platform, eliminating the need for multiple vendors and simplifying project management.</p>
+                        
+                        <ul class="platform-features">
+                            <li><i class="fas fa-check"></i> Single-point accountability for all services</li>
+                            <li><i class="fas fa-check"></i> Integrated billing and documentation</li>
+                            <li><i class="fas fa-check"></i> Cross-service coordination and optimization</li>
+                            <li><i class="fas fa-check"></i> Unified quality standards across all domains</li>
+                            <li><i class="fas fa-check"></i> Real-time project tracking dashboard</li>
+                        </ul>
+                        
+                        <a href="#" class="btn btn-secondary">Experience Integration</a>
+                    </div>
+                    
+                    <div class="unified-visual">
+                        <div class="platform-visual" style="
+                            width: 100%;
+                            height: 400px;
+                            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(16, 185, 129, 0.1));
+                            border-radius: var(--radius-lg);
+                            position: relative;
+                            overflow: hidden;
+                            border: 1px solid rgba(255, 255, 255, 0.1);
+                        ">
+                            <div style="position: absolute; width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; box-shadow: var(--shadow); background-color: var(--mechanical); top: 30px; left: 30px; animation: float 6s ease-in-out infinite;">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div style="position: absolute; width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; box-shadow: var(--shadow); background-color: var(--electrical); top: 30px; right: 30px; animation: float 6s ease-in-out infinite 0.5s;">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div style="position: absolute; width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; box-shadow: var(--shadow); background-color: var(--civil); bottom: 30px; left: 30px; animation: float 6s ease-in-out infinite 1s;">
+                                <i class="fas fa-hard-hat"></i>
+                            </div>
+                            <div style="position: absolute; width: 60px; height: 60px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; color: white; box-shadow: var(--shadow); background-color: var(--electronics); bottom: 30px; right: 30px; animation: float 6s ease-in-out infinite 1.5s;">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                            <div style="position: absolute; width: 80px; height: 80px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 2rem; color: white; box-shadow: var(--shadow); background-color: var(--travel); top: 50%; left: 50%; transform: translate(-50%, -50%); animation: pulse 3s ease-in-out infinite;">
+                                <i class="fas fa-plane"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Mechanical Services Page -->
+    <div class="page service-page mechanical-page" id="mechanicalPage">
+        <div class="container">
+            <div class="page-header">
+                <div class="service-icon-header">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <h1>Mechanical Services</h1>
+                <p>Comprehensive mechanical solutions for industrial, commercial, and residential needs. From machinery maintenance to HVAC systems, we ensure optimal performance and reliability.</p>
+                <div class="tag tag-mechanical">Certified Engineers</div>
+            </div>
+            
+            <div class="service-categories" id="mechanicalCategories">
+                <!-- Categories will be loaded by JavaScript -->
+            </div>
+            
+            <div class="sub-services" id="mechanicalSubServices">
+                <!-- Sub-services will be loaded when category is selected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Electrical Services Page -->
+    <div class="page service-page electrical-page" id="electricalPage">
+        <div class="container">
+            <div class="page-header">
+                <div class="service-icon-header">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h1>Electrical Services</h1>
+                <p>Complete electrical solutions for residential, commercial, and industrial needs. From wiring to smart home automation, we power your world safely and efficiently.</p>
+                <div class="tag tag-electrical">Certified Electricians</div>
+            </div>
+            
+            <div class="service-categories" id="electricalCategories">
+                <!-- Categories will be loaded by JavaScript -->
+            </div>
+            
+            <div class="sub-services" id="electricalSubServices">
+                <!-- Sub-services will be loaded when category is selected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Civil Services Page -->
+    <div class="page service-page civil-page" id="civilPage">
+        <div class="container">
+            <div class="page-header">
+                <div class="service-icon-header">
+                    <i class="fas fa-hard-hat"></i>
+                </div>
+                <h1>Civil Services</h1>
+                <p>End-to-end civil engineering and construction services. From infrastructure development to building construction, we build the foundations of modern society.</p>
+                <div class="tag tag-civil">Licensed Contractors</div>
+            </div>
+            
+            <div class="service-categories" id="civilCategories">
+                <!-- Categories will be loaded by JavaScript -->
+            </div>
+            
+            <div class="sub-services" id="civilSubServices">
+                <!-- Sub-services will be loaded when category is selected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Electronics Services Page -->
+    <div class="page service-page electronics-page" id="electronicsPage">
+        <div class="container">
+            <div class="page-header">
+                <div class="service-icon-header">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <h1>Electronics Services</h1>
+                <p>Advanced electronics solutions for modern technology needs. From circuit design to IoT integration, we bring innovation to life through electronics.</p>
+                <div class="tag tag-electronics">Tech Specialists</div>
+            </div>
+            
+            <div class="service-categories" id="electronicsCategories">
+                <!-- Categories will be loaded by JavaScript -->
+            </div>
+            
+            <div class="sub-services" id="electronicsSubServices">
+                <!-- Sub-services will be loaded when category is selected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Travel Services Page -->
+    <div class="page service-page travel-page" id="travelPage">
+        <div class="container">
+            <div class="page-header">
+                <div class="service-icon-header">
+                    <i class="fas fa-plane"></i>
+                </div>
+                <h1>Travel Services</h1>
+                <p>Comprehensive travel and logistical solutions. From corporate travel management to vacation planning, we make every journey seamless and memorable.</p>
+                <div class="tag tag-travel">Travel Experts</div>
+            </div>
+            
+            <div class="service-categories" id="travelCategories">
+                <!-- Categories will be loaded by JavaScript -->
+            </div>
+            
+            <div class="sub-services" id="travelSubServices">
+                <!-- Sub-services will be loaded when category is selected -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-about">
+                    <div class="footer-logo">
+                        Zentro<span>.</span>
+                    </div>
+                    <p>A unified platform delivering mechanical, electrical, civil, electronics, and travel services with integration, quality, and accountability.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                
+                <div class="footer-links">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#" id="footerHome">Home</a></li>
+                        <li><a href="#" id="footerMechanical">Mechanical</a></li>
+                        <li><a href="#" id="footerElectrical">Electrical</a></li>
+                        <li><a href="#" id="footerCivil">Civil</a></li>
+                        <li><a href="#" id="footerElectronics">Electronics</a></li>
+                        <li><a href="#" id="footerTravel">Travel</a></li>
+                    </ul>
+                </div>
+                
+                <div class="footer-services">
+                    <h3>Our Services</h3>
+                    <ul id="footerServices">
+                        <!-- Services list will be loaded by JavaScript -->
+                    </ul>
+                </div>
+                
+                <div class="footer-contact">
+                    <h3>Contact Us</h3>
+                    <p><i class="fas fa-map-marker-alt"></i> 123 Integrated Services Ave, Tech City</p>
+                    <p><i class="fas fa-phone"></i> +1 (555) 123-4567</p>
+                    <p><i class="fas fa-envelope"></i> support@zentro.com</p>
+                    <p><i class="fas fa-clock"></i> Mon-Sun: 24/7 Support</p>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 Zentro – Unified Services Platform. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Service data for all 5 domains
+        const allServices = {
+            mechanical: {
+                categories: [
+                    {
+                        id: "industrial",
+                        name: "Industrial Machinery",
+                        description: "Maintenance and repair of industrial machinery and equipment.",
+                        icon: "fas fa-industry",
+                        subServices: [
+                            { id: "machine-repair", name: "Machine Repair", description: "Repair of industrial machines and production equipment.", icon: "fas fa-tools", price: "$500-5000" },
+                            { id: "preventive-maintenance", name: "Preventive Maintenance", description: "Scheduled maintenance to prevent breakdowns.", icon: "fas fa-calendar-check", price: "$300-2000" },
+                            { id: "cnc-machine-service", name: "CNC Machine Service", description: "Service and calibration of CNC machines.", icon: "fas fa-robot", price: "$1000-8000" },
+                            { id: "hydraulic-systems", name: "Hydraulic Systems", description: "Repair and maintenance of hydraulic systems.", icon: "fas fa-tachometer-alt", price: "$400-3000" }
+                        ]
+                    },
+                    {
+                        id: "automotive",
+                        name: "Automotive Services",
+                        description: "Comprehensive automotive repair and maintenance services.",
+                        icon: "fas fa-car",
+                        subServices: [
+                            { id: "engine-repair", name: "Engine Repair", description: "Complete engine overhaul and repair services.", icon: "fas fa-engine", price: "$500-3000" },
+                            { id: "brake-service", name: "Brake Service", description: "Brake system inspection and repair.", icon: "fas fa-stop-circle", price: "$150-500" },
+                            { id: "suspension-repair", name: "Suspension Repair", description: "Suspension system repair and alignment.", icon: "fas fa-car-crash", price: "$200-800" },
+                            { id: "ac-repair", name: "AC Repair", description: "Automotive air conditioning system repair.", icon: "fas fa-snowflake", price: "$100-400" }
+                        ]
+                    },
+                    {
+                        id: "hvac",
+                        name: "HVAC Systems",
+                        description: "Heating, ventilation, and air conditioning services.",
+                        icon: "fas fa-wind",
+                        subServices: [
+                            { id: "ac-installation", name: "AC Installation", description: "Installation of new air conditioning systems.", icon: "fas fa-snowflake", price: "$1000-5000" },
+                            { id: "hvac-maintenance", name: "HVAC Maintenance", description: "Regular maintenance of HVAC systems.", icon: "fas fa-tools", price: "$100-500" },
+                            { id: "duct-cleaning", name: "Duct Cleaning", description: "Cleaning of air ducts and ventilation systems.", icon: "fas fa-fan", price: "$200-800" },
+                            { id: "heater-repair", name: "Heater Repair", description: "Repair of heating systems and boilers.", icon: "fas fa-fire", price: "$150-600" }
+                        ]
+                    },
+                    {
+                        id: "fabrication",
+                        name: "Metal Fabrication",
+                        description: "Custom metal fabrication and welding services.",
+                        icon: "fas fa-hard-hat",
+                        subServices: [
+                            { id: "custom-fabrication", name: "Custom Fabrication", description: "Custom metal parts and structures.", icon: "fas fa-cube", price: "$200-5000" },
+                            { id: "welding-services", name: "Welding Services", description: "Professional welding for various applications.", icon: "fas fa-fire", price: "$50-500" },
+                            { id: "sheet-metal-work", name: "Sheet Metal Work", description: "Sheet metal cutting, bending, and forming.", icon: "fas fa-cut", price: "$100-1000" },
+                            { id: "structural-fabrication", name: "Structural Fabrication", description: "Fabrication of structural steel components.", icon: "fas fa-building", price: "$500-10000" }
+                        ]
+                    }
+                ]
+            },
+            electrical: {
+                categories: [
+                    {
+                        id: "residential",
+                        name: "Residential Electrical",
+                        description: "Home electrical solutions including wiring, lighting, and safety systems.",
+                        icon: "fas fa-home",
+                        subServices: [
+                            { id: "meter-installation", name: "Meter Installation", description: "Installation of new electricity meters for homes.", icon: "fas fa-tachometer-alt", price: "$150-300" },
+                            { id: "home-wiring", name: "Complete Home Wiring", description: "Full electrical wiring for new or existing homes.", icon: "fas fa-wrench", price: "$1000-5000" },
+                            { id: "lighting-installation", name: "Lighting Installation", description: "Installation of indoor and outdoor lighting.", icon: "fas fa-lightbulb", price: "$100-500" },
+                            { id: "socket-outlets", name: "Socket & Outlet Installation", description: "Installation of power sockets and outlets.", icon: "fas fa-plug", price: "$50-150" }
+                        ]
+                    },
+                    {
+                        id: "commercial",
+                        name: "Commercial Electrical",
+                        description: "Electrical solutions for offices, shops, and commercial establishments.",
+                        icon: "fas fa-building",
+                        subServices: [
+                            { id: "office-wiring", name: "Office Electrical Wiring", description: "Complete electrical wiring for commercial offices.", icon: "fas fa-desktop", price: "$2000-10000" },
+                            { id: "security-lighting", name: "Security Lighting", description: "Installation of security lighting systems.", icon: "fas fa-shield-alt", price: "$500-2000" },
+                            { id: "data-cabling", name: "Data & Network Cabling", description: "Structured cabling for data networks.", icon: "fas fa-network-wired", price: "$800-3000" },
+                            { id: "backup-power", name: "Backup Power Systems", description: "Installation of UPS and backup generators.", icon: "fas fa-car-battery", price: "$1000-5000" }
+                        ]
+                    },
+                    {
+                        id: "industrial",
+                        name: "Industrial Electrical",
+                        description: "Heavy-duty electrical solutions for factories and plants.",
+                        icon: "fas fa-industry",
+                        subServices: [
+                            { id: "motor-control", name: "Motor Control Systems", description: "Industrial motor control system installation.", icon: "fas fa-cogs", price: "$2000-8000" },
+                            { id: "power-distribution", name: "Power Distribution", description: "Industrial power distribution panels and systems.", icon: "fas fa-bolt", price: "$3000-15000" },
+                            { id: "machine-wiring", name: "Machine Wiring", description: "Electrical wiring for industrial machinery.", icon: "fas fa-robot", price: "$1000-5000" },
+                            { id: "control-panels", name: "Control Panels", description: "Custom electrical control panel design.", icon: "fas fa-sliders-h", price: "$1500-10000" }
+                        ]
+                    },
+                    {
+                        id: "layout",
+                        name: "Layout Power Supply",
+                        description: "Electrical infrastructure for housing layouts and communities.",
+                        icon: "fas fa-map-marked-alt",
+                        subServices: [
+                            { id: "layout-power", name: "Layout Power Supply", description: "Complete electrical infrastructure for layouts.", icon: "fas fa-map", price: "$5000-50000" },
+                            { id: "street-lighting", name: "Street Lighting", description: "Installation of street lighting systems.", icon: "fas fa-road", price: "$2000-10000" },
+                            { id: "transformer-setup", name: "Transformer Setup", description: "Installation of transformers for layouts.", icon: "fas fa-car-battery", price: "$10000-50000" },
+                            { id: "underground-cabling", name: "Underground Cabling", description: "Laying of underground electrical cables.", icon: "fas fa-digging", price: "$8000-30000" }
+                        ]
+                    }
+                ]
+            },
+            civil: {
+                categories: [
+                    {
+                        id: "construction",
+                        name: "Building Construction",
+                        description: "Complete construction services for residential and commercial buildings.",
+                        icon: "fas fa-building",
+                        subServices: [
+                            { id: "house-construction", name: "House Construction", description: "Complete house construction from foundation to finish.", icon: "fas fa-home", price: "$50000-500000" },
+                            { id: "commercial-construction", name: "Commercial Construction", description: "Construction of commercial buildings and offices.", icon: "fas fa-city", price: "$100000-2000000" },
+                            { id: "interior-work", name: "Interior Construction", description: "Interior construction and finishing work.", icon: "fas fa-couch", price: "$5000-100000" },
+                            { id: "renovation", name: "Building Renovation", description: "Complete renovation of existing structures.", icon: "fas fa-paint-roller", price: "$10000-200000" }
+                        ]
+                    },
+                    {
+                        id: "infrastructure",
+                        name: "Infrastructure Development",
+                        description: "Civil infrastructure projects including roads, bridges, and utilities.",
+                        icon: "fas fa-road",
+                        subServices: [
+                            { id: "road-construction", name: "Road Construction", description: "Construction and repair of roads and highways.", icon: "fas fa-road", price: "$50000-5000000" },
+                            { id: "bridge-construction", name: "Bridge Construction", description: "Design and construction of bridges.", icon: "fas fa-bridge", price: "$100000-5000000" },
+                            { id: "drainage-systems", name: "Drainage Systems", description: "Design and installation of drainage systems.", icon: "fas fa-water", price: "$10000-500000" },
+                            { id: "sewage-systems", name: "Sewage Systems", description: "Sewage system design and installation.", icon: "fas fa-toilet", price: "$20000-300000" }
+                        ]
+                    },
+                    {
+                        id: "structural",
+                        name: "Structural Engineering",
+                        description: "Structural design, analysis, and consulting services.",
+                        icon: "fas fa-drafting-compass",
+                        subServices: [
+                            { id: "structural-design", name: "Structural Design", description: "Design of building structures and foundations.", icon: "fas fa-drafting-compass", price: "$2000-50000" },
+                            { id: "structural-analysis", name: "Structural Analysis", description: "Analysis of structural integrity and safety.", icon: "fas fa-calculator", price: "$1000-20000" },
+                            { id: "foundation-work", name: "Foundation Work", description: "Foundation design and construction.", icon: "fas fa-mountain", price: "$5000-100000" },
+                            { id: "retaining-walls", name: "Retaining Walls", description: "Design and construction of retaining walls.", icon: "fas fa-wall", price: "$3000-50000" }
+                        ]
+                    },
+                    {
+                        id: "surveying",
+                        name: "Land Surveying",
+                        description: "Land surveying and mapping services for construction projects.",
+                        icon: "fas fa-map",
+                        subServices: [
+                            { id: "topographic-survey", name: "Topographic Survey", description: "Detailed topographic mapping of land.", icon: "fas fa-mountain", price: "$500-5000" },
+                            { id: "boundary-survey", name: "Boundary Survey", description: "Property boundary identification and marking.", icon: "fas fa-expand-alt", price: "$300-2000" },
+                            { id: "construction-staking", name: "Construction Staking", description: "Staking for construction layout and alignment.", icon: "fas fa-ruler-combined", price: "$400-3000" },
+                            { id: "gis-mapping", name: "GIS Mapping", description: "Geographic information system mapping.", icon: "fas fa-globe", price: "$1000-10000" }
+                        ]
+                    }
+                ]
+            },
+            electronics: {
+                categories: [
+                    {
+                        id: "consumer",
+                        name: "Consumer Electronics",
+                        description: "Repair and maintenance of consumer electronic devices.",
+                        icon: "fas fa-tv",
+                        subServices: [
+                            { id: "tv-repair", name: "TV Repair", description: "Repair of LED, LCD, and Smart TVs.", icon: "fas fa-tv", price: "$50-500" },
+                            { id: "laptop-repair", name: "Laptop Repair", description: "Laptop hardware and software repair.", icon: "fas fa-laptop", price: "$50-300" },
+                            { id: "smartphone-repair", name: "Smartphone Repair", description: "Repair of smartphones and tablets.", icon: "fas fa-mobile-alt", price: "$20-200" },
+                            { id: "appliance-repair", name: "Appliance Repair", description: "Repair of electronic home appliances.", icon: "fas fa-blender", price: "$30-300" }
+                        ]
+                    },
+                    {
+                        id: "embedded",
+                        name: "Embedded Systems",
+                        description: "Design and development of embedded electronic systems.",
+                        icon: "fas fa-microchip",
+                        subServices: [
+                            { id: "pcb-design", name: "PCB Design", description: "Printed circuit board design and layout.", icon: "fas fa-project-diagram", price: "$500-5000" },
+                            { id: "microcontroller", name: "Microcontroller Programming", description: "Programming of microcontrollers for applications.", icon: "fas fa-code", price: "$300-3000" },
+                            { id: "iot-devices", name: "IoT Devices", description: "Internet of Things device development.", icon: "fas fa-wifi", price: "$1000-10000" },
+                            { id: "sensor-integration", name: "Sensor Integration", description: "Integration of sensors with electronic systems.", icon: "fas fa-thermometer-half", price: "$200-2000" }
+                        ]
+                    },
+                    {
+                        id: "audio-video",
+                        name: "Audio-Video Systems",
+                        description: "Installation and configuration of audio-video systems.",
+                        icon: "fas fa-volume-up",
+                        subServices: [
+                            { id: "home-theater", name: "Home Theater Installation", description: "Complete home theater system setup.", icon: "fas fa-film", price: "$500-5000" },
+                            { id: "sound-systems", name: "Sound System Installation", description: "Installation of professional sound systems.", icon: "fas fa-volume-up", price: "$300-3000" },
+                            { id: "surveillance-systems", name: "Surveillance Systems", description: "CCTV and surveillance system installation.", icon: "fas fa-camera", price: "$200-2000" },
+                            { id: "video-conferencing", name: "Video Conferencing", description: "Video conferencing system setup.", icon: "fas fa-video", price: "$500-3000" }
+                        ]
+                    },
+                    {
+                        id: "automation",
+                        name: "Industrial Automation",
+                        description: "Automation solutions for industrial processes.",
+                        icon: "fas fa-robot",
+                        subServices: [
+                            { id: "plc-programming", name: "PLC Programming", description: "Programmable logic controller programming.", icon: "fas fa-code", price: "$1000-10000" },
+                            { id: "scada-systems", name: "SCADA Systems", description: "Supervisory control and data acquisition systems.", icon: "fas fa-desktop", price: "$5000-50000" },
+                            { id: "industrial-robotics", name: "Industrial Robotics", description: "Robotic system integration and programming.", icon: "fas fa-robot", price: "$10000-100000" },
+                            { id: "process-control", name: "Process Control Systems", description: "Industrial process control system design.", icon: "fas fa-sliders-h", price: "$5000-50000" }
+                        ]
+                    }
+                ]
+            },
+            travel: {
+                categories: [
+                    {
+                        id: "corporate",
+                        name: "Corporate Travel",
+                        description: "Business travel management and logistics services.",
+                        icon: "fas fa-briefcase",
+                        subServices: [
+                            { id: "business-travel", name: "Business Travel Planning", description: "Complete business trip planning and booking.", icon: "fas fa-plane", price: "Varies" },
+                            { id: "corporate-events", name: "Corporate Events", description: "Planning and coordination of corporate events.", icon: "fas fa-calendar-alt", price: "$1000-50000" },
+                            { id: "group-travel", name: "Group Travel", description: "Group travel arrangements for companies.", icon: "fas fa-users", price: "Varies" },
+                            { id: "travel-policy", name: "Travel Policy Management", description: "Corporate travel policy development.", icon: "fas fa-file-contract", price: "$500-5000" }
+                        ]
+                    },
+                    {
+                        id: "vacation",
+                        name: "Vacation Planning",
+                        description: "Personal vacation and holiday planning services.",
+                        icon: "fas fa-umbrella-beach",
+                        subServices: [
+                            { id: "holiday-packages", name: "Holiday Packages", description: "Custom holiday package creation.", icon: "fas fa-gift", price: "$500-10000" },
+                            { id: "honeymoon-planning", name: "Honeymoon Planning", description: "Specialized honeymoon trip planning.", icon: "fas fa-heart", price: "$1000-15000" },
+                            { id: "family-vacations", name: "Family Vacations", description: "Family-friendly vacation planning.", icon: "fas fa-home", price: "$1000-20000" },
+                            { id: "adventure-travel", name: "Adventure Travel", description: "Adventure and expedition planning.", icon: "fas fa-hiking", price: "$800-10000" }
+                        ]
+                    },
+                    {
+                        id: "logistics",
+                        name: "Travel Logistics",
+                        description: "Comprehensive travel logistics and support services.",
+                        icon: "fas fa-shipping-fast",
+                        subServices: [
+                            { id: "visa-assistance", name: "Visa Assistance", description: "Visa application support and guidance.", icon: "fas fa-passport", price: "$50-500" },
+                            { id: "travel-insurance", name: "Travel Insurance", description: "Travel insurance policy arrangement.", icon: "fas fa-shield-alt", price: "$20-200" },
+                            { id: "transport-arrangement", name: "Transport Arrangement", description: "Local and international transport booking.", icon: "fas fa-bus", price: "Varies" },
+                            { id: "accommodation-booking", name: "Accommodation Booking", description: "Hotel and accommodation booking.", icon: "fas fa-hotel", price: "Varies" }
+                        ]
+                    },
+                    {
+                        id: "specialized",
+                        name: "Specialized Travel",
+                        description: "Specialized travel services for unique requirements.",
+                        icon: "fas fa-star",
+                        subServices: [
+                            { id: "medical-travel", name: "Medical Travel", description: "Travel arrangements for medical purposes.", icon: "fas fa-ambulance", price: "$1000-50000" },
+                            { id: "educational-tours", name: "Educational Tours", description: "Educational and learning travel programs.", icon: "fas fa-graduation-cap", price: "$500-10000" },
+                            { id: "pilgrimage-tours", name: "Pilgrimage Tours", description: "Religious and pilgrimage travel planning.", icon: "fas fa-place-of-worship", price: "$1000-20000" },
+                            { id: "luxury-travel", name: "Luxury Travel", description: "Premium luxury travel experiences.", icon: "fas fa-crown", price: "$5000-100000" }
+                        ]
+                    }
+                ]
+            }
+        };
+
+        // DOM elements
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mainNav = document.getElementById('mainNav');
+        const loginBtn = document.getElementById('loginBtn');
+        const loginModal = document.getElementById('loginModal');
+        const closeLogin = document.getElementById('closeLogin');
+        const loginForm = document.getElementById('loginForm');
+        const homePage = document.getElementById('homePage');
+        
+        // Navigation elements
+        const navHome = document.getElementById('navHome');
+        const navMechanical = document.getElementById('navMechanical');
+        const navElectrical = document.getElementById('navElectrical');
+        const navCivil = document.getElementById('navCivil');
+        const navElectronics = document.getElementById('navElectronics');
+        const navTravel = document.getElementById('navTravel');
+        
+        // Service orbs
+        const mechanicalOrb = document.getElementById('mechanicalOrb');
+        const electricalOrb = document.getElementById('electricalOrb');
+        const civilOrb = document.getElementById('civilOrb');
+        const electronicsOrb = document.getElementById('electronicsOrb');
+        const travelOrb = document.getElementById('travelOrb');
+        
+        // Footer navigation
+        const footerHome = document.getElementById('footerHome');
+        const footerMechanical = document.getElementById('footerMechanical');
+        const footerElectrical = document.getElementById('footerElectrical');
+        const footerCivil = document.getElementById('footerCivil');
+        const footerElectronics = document.getElementById('footerElectronics');
+        const footerTravel = document.getElementById('footerTravel');
+
+        // Current state
+        let currentService = null;
+        let currentCategory = null;
+        let currentSubService = null;
+        let isLoggedIn = false;
+        let currentPage = 'home';
+
+        // Mobile menu toggle
+        mobileMenuBtn.addEventListener('click', () => {
+            mainNav.classList.toggle('active');
+            mobileMenuBtn.innerHTML = mainNav.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+        });
+
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                mainNav.classList.remove('active');
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            });
+        });
+
+        // Login modal
+        loginBtn.addEventListener('click', () => {
+            loginModal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeLogin.addEventListener('click', () => {
+            loginModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        });
+
+        // Close modal when clicking outside
+        loginModal.addEventListener('click', (e) => {
+            if (e.target === loginModal) {
+                loginModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+
+        // Login form submission
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value;
+            const password = document.getElementById('loginPassword').value;
+            
+            // Simple validation
+            if (!email || !password) {
+                showNotification('Please fill in all fields', 'warning');
+                return;
+            }
+            
+            // Simulate login process
+            loginBtn.innerHTML = '<i class="fas fa-user-check"></i> Logged In';
+            loginBtn.style.backgroundColor = 'var(--success)';
+            isLoggedIn = true;
+            
+            // Close modal
+            loginModal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+            
+            // Show success message
+            showNotification('Login successful! You can now book services.', 'success');
+            
+            // If there's a pending sub-service booking, proceed with it
+            if (currentSubService) {
+                bookSubService(currentSubService, currentService);
+                currentSubService = null;
+            }
+        });
+
+        // Page navigation functions
+        function showPage(pageName) {
+            // Hide all pages
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Show requested page
+            const pageElement = document.getElementById(pageName + 'Page');
+            if (pageElement) {
+                pageElement.classList.add('active');
+                window.scrollTo(0, 0);
+                currentPage = pageName;
+                
+                // Load service-specific content if it's a service page
+                if (pageName !== 'home') {
+                    currentService = pageName;
+                    loadServiceCategories(pageName);
+                }
+            }
+        }
+
+        function updateNavActive(activePage) {
+            document.querySelectorAll('nav a').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            const activeNav = document.getElementById('nav' + activePage.charAt(0).toUpperCase() + activePage.slice(1));
+            if (activeNav) {
+                activeNav.classList.add('active');
+            }
+        }
+
+        // Navigation event listeners
+        navHome.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('home');
+            updateNavActive('home');
+        });
+
+        navMechanical.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('mechanical');
+            updateNavActive('mechanical');
+        });
+
+        navElectrical.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('electrical');
+            updateNavActive('electrical');
+        });
+
+        navCivil.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('civil');
+            updateNavActive('civil');
+        });
+
+        navElectronics.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('electronics');
+            updateNavActive('electronics');
+        });
+
+        navTravel.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('travel');
+            updateNavActive('travel');
+        });
+
+        // Service orb click events
+        mechanicalOrb.addEventListener('click', () => {
+            showPage('mechanical');
+            updateNavActive('mechanical');
+        });
+
+        electricalOrb.addEventListener('click', () => {
+            showPage('electrical');
+            updateNavActive('electrical');
+        });
+
+        civilOrb.addEventListener('click', () => {
+            showPage('civil');
+            updateNavActive('civil');
+        });
+
+        electronicsOrb.addEventListener('click', () => {
+            showPage('electronics');
+            updateNavActive('electronics');
+        });
+
+        travelOrb.addEventListener('click', () => {
+            showPage('travel');
+            updateNavActive('travel');
+        });
+
+        // Footer navigation
+        footerHome.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('home');
+            updateNavActive('home');
+        });
+
+        footerMechanical.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('mechanical');
+            updateNavActive('mechanical');
+        });
+
+        footerElectrical.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('electrical');
+            updateNavActive('electrical');
+        });
+
+        footerCivil.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('civil');
+            updateNavActive('civil');
+        });
+
+        footerElectronics.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('electronics');
+            updateNavActive('electronics');
+        });
+
+        footerTravel.addEventListener('click', (e) => {
+            e.preventDefault();
+            showPage('travel');
+            updateNavActive('travel');
+        });
+
+        // Load home page services
+        function loadHomeServices() {
+            const servicesContainer = document.getElementById('servicesContainer');
+            const footerServices = document.getElementById('footerServices');
+            
+            servicesContainer.innerHTML = '';
+            footerServices.innerHTML = '';
+            
+            const services = [
+                { type: 'mechanical', name: 'Mechanical Services', icon: 'fas fa-cogs', description: 'Industrial machinery, automotive services, HVAC systems, and metal fabrication.' },
+                { type: 'electrical', name: 'Electrical Services', icon: 'fas fa-bolt', description: 'Residential, commercial, industrial electrical solutions and power systems.' },
+                { type: 'civil', name: 'Civil Services', icon: 'fas fa-hard-hat', description: 'Construction, infrastructure development, structural engineering, and surveying.' },
+                { type: 'electronics', name: 'Electronics Services', icon: 'fas fa-microchip', description: 'Consumer electronics repair, embedded systems, automation, and AV systems.' },
+                { type: 'travel', name: 'Travel Services', icon: 'fas fa-plane', description: 'Corporate travel, vacation planning, logistics, and specialized travel services.' }
+            ];
+            
+            services.forEach(service => {
+                // Create service card
+                const serviceCard = document.createElement('div');
+                serviceCard.className = `service-card ${service.type}`;
+                serviceCard.innerHTML = `
+                    <div class="service-icon">
+                        <i class="${service.icon}"></i>
+                    </div>
+                    <span class="tag tag-${service.type}">${service.type.toUpperCase()}</span>
+                    <h3>${service.name}</h3>
+                    <p>${service.description}</p>
+                    <ul class="service-features">
+                        <li><i class="fas fa-check"></i> Certified Professionals</li>
+                        <li><i class="fas fa-check"></i> Quality Assurance</li>
+                        <li><i class="fas fa-check"></i> Timely Service</li>
+                        <li><i class="fas fa-check"></i> Competitive Pricing</li>
+                    </ul>
+                    <button class="btn btn-${service.type} book-service-home" data-service="${service.type}">
+                        Explore ${service.type.charAt(0).toUpperCase() + service.type.slice(1)} Services
+                    </button>
+                `;
+                servicesContainer.appendChild(serviceCard);
+                
+                // Create service list item for footer
+                const serviceListItem = document.createElement('li');
+                serviceListItem.innerHTML = `<a href="#" class="service-link" data-service="${service.type}">${service.name}</a>`;
+                footerServices.appendChild(serviceListItem);
+            });
+            
+            // Add event listeners to service booking buttons
+            document.querySelectorAll('.book-service-home').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const serviceType = this.getAttribute('data-service');
+                    showPage(serviceType);
+                    updateNavActive(serviceType);
+                });
+            });
+        }
+
+        // Load service categories
+        function loadServiceCategories(serviceType) {
+            const categoriesContainer = document.getElementById(serviceType + 'Categories');
+            const subServicesContainer = document.getElementById(serviceType + 'SubServices');
+            
+            if (!categoriesContainer) return;
+            
+            categoriesContainer.innerHTML = '';
+            subServicesContainer.innerHTML = '';
+            
+            const service = allServices[serviceType];
+            
+            service.categories.forEach(category => {
+                const categoryCard = document.createElement('div');
+                categoryCard.className = 'category-card';
+                categoryCard.setAttribute('data-category', category.id);
+                categoryCard.innerHTML = `
+                    <div class="category-icon" style="background-color: ${getServiceColor(serviceType, 0.1)}; color: ${getServiceColor(serviceType)};">
+                        <i class="${category.icon}"></i>
+                    </div>
+                    <h3>${category.name}</h3>
+                    <p>${category.description}</p>
+                    <div class="btn btn-outline">View Services</div>
+                `;
+                categoriesContainer.appendChild(categoryCard);
+                
+                // Add click event
+                categoryCard.addEventListener('click', () => {
+                    loadSubServices(serviceType, category);
+                    currentCategory = category.id;
+                    
+                    // Highlight selected category
+                    document.querySelectorAll('.category-card').forEach(card => {
+                        card.style.borderColor = 'var(--gray-light)';
+                    });
+                    categoryCard.style.borderColor = getServiceColor(serviceType);
+                });
+            });
+            
+            // Load first category by default
+            if (service.categories.length > 0) {
+                loadSubServices(serviceType, service.categories[0]);
+                currentCategory = service.categories[0].id;
+            }
+        }
+
+        // Load sub-services for a category
+        function loadSubServices(serviceType, category) {
+            const subServicesContainer = document.getElementById(serviceType + 'SubServices');
+            
+            subServicesContainer.innerHTML = `
+                <h2>${category.name} - Available Services</h2>
+                <div class="sub-services-grid" id="${serviceType}SubServicesGrid"></div>
+            `;
+            
+            const subServicesGrid = document.getElementById(serviceType + 'SubServicesGrid');
+            
+            category.subServices.forEach(subService => {
+                const subServiceItem = document.createElement('div');
+                subServiceItem.className = 'sub-service-item';
+                subServiceItem.setAttribute('data-subservice', subService.id);
+                subServiceItem.innerHTML = `
+                    <div class="sub-service-icon">
+                        <i class="${subService.icon}"></i>
+                    </div>
+                    <h4>${subService.name}</h4>
+                    <p>${subService.description}</p>
+                    <div class="price-tag">${subService.price}</div>
+                    <button class="btn btn-${serviceType} book-subservice-btn" style="margin-top: 15px; padding: 10px 20px;">
+                        <i class="fas fa-calendar-check"></i> Book Now
+                    </button>
+                `;
+                subServicesGrid.appendChild(subServiceItem);
+                
+                // Add click event to book button
+                const bookBtn = subServiceItem.querySelector('.book-subservice-btn');
+                bookBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    handleSubServiceBooking(subService, serviceType);
+                });
+            });
+        }
+
+        // Handle sub-service booking
+        function handleSubServiceBooking(subService, serviceType) {
+            currentSubService = subService;
+            currentService = serviceType;
+            
+            if (!isLoggedIn) {
+                // Show login modal if not logged in
+                showNotification('Please login to book this service', 'warning');
+                loginModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                // Proceed with booking
+                bookSubService(subService, serviceType);
+            }
+        }
+
+        // Book sub-service (after login)
+        function bookSubService(subService, serviceType) {
+            // Create booking modal
+            const bookingModal = document.createElement('div');
+            bookingModal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.7);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 2000;
+                padding: 20px;
+            `;
+            
+            const serviceColor = getServiceColor(serviceType);
+            
+            bookingModal.innerHTML = `
+                <div style="
+                    background-color: white;
+                    border-radius: var(--radius);
+                    padding: 40px;
+                    max-width: 500px;
+                    width: 100%;
+                    position: relative;
+                    box-shadow: var(--shadow-lg);
+                ">
+                    <button class="close-booking" style="
+                        position: absolute;
+                        top: 15px;
+                        right: 15px;
+                        background: none;
+                        border: none;
+                        font-size: 1.5rem;
+                        cursor: pointer;
+                        color: var(--gray);
+                    ">×</button>
+                    
+                    <div style="text-align: center; margin-bottom: 30px;">
+                        <div style="
+                            width: 70px;
+                            height: 70px;
+                            background-color: ${serviceColor}20;
+                            border-radius: 50%;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            margin: 0 auto 20px;
+                            color: ${serviceColor};
+                            font-size: 1.8rem;
+                        ">
+                            <i class="${subService.icon}"></i>
+                        </div>
+                        <h3 style="margin-bottom: 10px;">Book ${subService.name}</h3>
+                        <p style="color: var(--gray);">${subService.description}</p>
+                        <div style="padding: 8px 16px; background-color: ${serviceColor}10; border-radius: 50px; display: inline-block; margin-top: 10px; color: ${serviceColor}; font-weight: 700; border: 1px solid ${serviceColor}30;">${subService.price}</div>
+                    </div>
+                    
+                    <form id="bookingForm">
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Service Date</label>
+                            <input type="date" style="
+                                width: 100%;
+                                padding: 12px 15px;
+                                border-radius: 8px;
+                                border: 1px solid var(--gray-light);
+                                font-family: 'Inter', sans-serif;
+                            " min="${new Date().toISOString().split('T')[0]}" required>
+                        </div>
+                        
+                        <div style="margin-bottom: 20px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Time Preference</label>
+                            <select style="
+                                width: 100%;
+                                padding: 12px 15px;
+                                border-radius: 8px;
+                                border: 1px solid var(--gray-light);
+                                font-family: 'Inter', sans-serif;
+                            " required>
+                                <option value="">Select Time</option>
+                                <option value="morning">Morning (9 AM - 12 PM)</option>
+                                <option value="afternoon">Afternoon (12 PM - 4 PM)</option>
+                                <option value="evening">Evening (4 PM - 7 PM)</option>
+                            </select>
+                        </div>
+                        
+                        <div style="margin-bottom: 30px;">
+                            <label style="display: block; margin-bottom: 8px; font-weight: 600;">Address</label>
+                            <textarea style="
+                                width: 100%;
+                                padding: 12px 15px;
+                                border-radius: 8px;
+                                border: 1px solid var(--gray-light);
+                                font-family: 'Inter', sans-serif;
+                                min-height: 100px;
+                                resize: vertical;
+                            " placeholder="Enter your address for service" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn" style="width: 100%; padding: 15px; background-color: ${serviceColor}; color: white; border: none;">
+                            <i class="fas fa-calendar-check"></i> Confirm Booking
+                        </button>
+                    </form>
+                </div>
+            `;
+            
+            document.body.appendChild(bookingModal);
+            
+            // Close booking modal
+            bookingModal.querySelector('.close-booking').addEventListener('click', () => {
+                document.body.removeChild(bookingModal);
+            });
+            
+            // Handle booking form submission
+            bookingModal.querySelector('#bookingForm').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Show success message
+                showNotification(`${subService.name} booked successfully! Our ${serviceType} specialist will contact you soon.`, 'success');
+                
+                // Close modal
+                document.body.removeChild(bookingModal);
+                
+                // Return to service page
+                showPage(serviceType);
+            });
+            
+            // Close modal when clicking outside
+            bookingModal.addEventListener('click', (e) => {
+                if (e.target === bookingModal) {
+                    document.body.removeChild(bookingModal);
+                }
+            });
+        }
+
+        // Get service color
+        function getServiceColor(serviceType, opacity = 1) {
+            const colors = {
+                mechanical: `rgba(239, 68, 68, ${opacity})`,
+                electrical: `rgba(59, 130, 246, ${opacity})`,
+                civil: `rgba(16, 185, 129, ${opacity})`,
+                electronics: `rgba(139, 92, 246, ${opacity})`,
+                travel: `rgba(245, 158, 11, ${opacity})`
+            };
+            
+            return colors[serviceType] || `rgba(37, 99, 235, ${opacity})`;
+        }
+
+        // Show notification
+        function showNotification(message, type) {
+            const notification = document.createElement('div');
+            const bgColor = type === 'success' ? 'var(--success)' : type === 'warning' ? 'var(--warning)' : 'var(--primary)';
+            
+            notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background-color: ${bgColor};
+                color: white;
+                padding: 15px 25px;
+                border-radius: var(--radius);
+                box-shadow: var(--shadow-lg);
+                z-index: 2001;
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                max-width: 400px;
+                animation: slideIn 0.3s ease;
+            `;
+            
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'warning' ? 'exclamation-triangle' : 'info-circle'}"></i>
+                <span>${message}</span>
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Auto remove after 5 seconds
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.style.animation = 'slideOut 0.3s ease';
+                    setTimeout(() => {
+                        if (notification.parentNode) {
+                            document.body.removeChild(notification);
+                        }
+                    }, 300);
+                }
+            }, 5000);
+        }
+
+        // Add CSS for animations
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                from { transform: translateX(100%); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+            @keyframes slideOut {
+                from { transform: translateX(0); opacity: 1; }
+                to { transform: translateX(100%); opacity: 0; }
+            }
+            @keyframes float {
+                0%, 100% { transform: translateY(0); }
+                50% { transform: translateY(-15px); }
+            }
+            @keyframes pulse {
+                0%, 100% { transform: translate(-50%, -50%) scale(1); }
+                50% { transform: translate(-50%, -50%) scale(1.1); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize everything when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            loadHomeServices();
+            
+            // Set default page to home
+            showPage('home');
+            updateNavActive('home');
+        });
+    </script>
+</body>
+</html>
